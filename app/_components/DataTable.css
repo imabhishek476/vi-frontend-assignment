@@ -1,0 +1,14 @@
+.sticky-col {
+    position: sticky;
+    left: 0;
+    background-color: inherit;
+  }
+  
+  .sticky-col-second {
+    position: sticky;
+    left: 24px;
+    background-color: inherit;
+  }
+  
+  
+  
