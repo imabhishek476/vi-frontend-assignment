@@ -4,8 +4,27 @@ import { Badge } from "@/components/ui/badge";
 import { type ColumnDef } from "@tanstack/react-table";
 import { labels, priorities, statuses } from "../_constants/metadata";
 import { type Task } from "../_constants/schema";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const columns: Array<ColumnDef<Task>> = [
+    {
+        id: 'select-col',
+        header: ({ table }) => (
+          <Checkbox
+            disabled
+            checked={true}
+            // indeterminate={table.getIsSomeRowsSelected()}
+            onChange={table.getToggleAllRowsSelectedHandler()}
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            disabled={!row.getCanSelect()}
+            onChange={row.getToggleSelectedHandler()}
+          />
+        ),
+      },
     {
         accessorKey: "id",
         header: ({ column }) => <span>Task</span>,

@@ -16,7 +16,7 @@ import {
     useReactTable,
 } from "@tanstack/react-table";
 import { DataTablePagination } from "./data-table-pagination";
-
+import './DataTable.css';
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
@@ -28,6 +28,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        enableMultiRowSelection: false,
     });
 
     // TASK : Make first 2 columns (i.e. checkbox and task id) sticky
@@ -40,9 +41,11 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => {
+                                {headerGroup.headers.map((header,index) => {
+                                    const stickyClass = index < 2 ? `sticky-col${index === 1 ? '-second' : ''}` : '';
                                     return (
-                                        <TableHead key={header.id} colSpan={header.colSpan}>
+                                        <TableHead key={header.id} colSpan={header.colSpan} className={stickyClass}
+                                        >
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -61,15 +64,19 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
+                                    onClick={row.getToggleSelectedHandler()}
                                 >
-                                    {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                    {row.getVisibleCells().map((cell,index) => {
+                                        const stickyClass = index < 2 ? `sticky-col${index === 1 ? '-second' : ''}` : '';
+                                        return(
+                                        <TableCell key={cell.id} className={stickyClass}>
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext(),
                                             )}
                                         </TableCell>
-                                    ))}
+                                        )
+                                    })}
                                 </TableRow>
                             ))
                         ) : (
