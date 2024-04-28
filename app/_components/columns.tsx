@@ -24,11 +24,13 @@ export const columns: Array<ColumnDef<Task>> = [
             onChange={row.getToggleSelectedHandler()}
           />
         ),
+        size:200,
       },
     {
         accessorKey: "id",
         header: ({ column }) => <span>Task</span>,
         cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+        size:200,
     },
     {
         accessorKey: "title",
@@ -45,6 +47,7 @@ export const columns: Array<ColumnDef<Task>> = [
                 </div>
             );
         },
+        size:200,
     },
     {
         accessorKey: "status",
@@ -63,6 +66,7 @@ export const columns: Array<ColumnDef<Task>> = [
                 </div>
             );
         },
+        size:200,
     },
     {
         accessorKey: "priority",
@@ -85,5 +89,6 @@ export const columns: Array<ColumnDef<Task>> = [
                 </div>
             );
         },
+        size:200,
     },
 ];
